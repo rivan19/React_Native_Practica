@@ -3,7 +3,7 @@ import * as types from './types';
 
 
 export const updateItem = (item) => {
-    console.log('updateItem:', item);
+    //console.log('updateItem:', item);
     const action = {
         type: types.UPDATE_ITEM,
         payload: {item}

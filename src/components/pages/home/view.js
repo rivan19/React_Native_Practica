@@ -11,17 +11,33 @@ import {
 } from 'react-native';
 import styles from './styles';
 import {Actions} from 'react-native-router-flux';
+import colors from '../../../assets/colors';
+import _ from 'lodash';
 
 class Home extends React.Component {
   componentDidMount() {
+    //const params
     this.props.getPokemons();
   }
+
   _onPressButton = (item) => {
-    console.log('onPressButton:', item);
+    //console.log('onPressButton:', item);
     //console.log('_onPressButton - this.props:', this.props);
     this.props.setPokemon(item);
     Actions.push('Pokemon', {title: item.name});
   };
+
+  _onEndReached = ({distanceFromEnd}) => {
+    //console.log('onEndReached:', this.props);
+    const {pokemonList, total, loading} = this.props;
+    const listSize = _.size(pokemonList);
+    //console.log('_onEndReached - listSize:', listSize);
+    //console.log('_onEndReached - total:', total);
+    //if (listSize > 0 && listSize < total) {
+      this.props.fetchNextPokemonsPage();
+    //}
+  };
+
   _renderItem = ({item, index}) => {
     return (
       <TouchableOpacity
@@ -51,15 +67,27 @@ class Home extends React.Component {
   };
 
   render() {
-    console.log('componentDidMount - Render:', this.props);
+    //console.log('componentDidMount - Render:', this.props);
     const {pokemonList, loading} = this.props;
     return (
       <SafeAreaView style={styles.container}>
         <FlatList
           data={pokemonList}
-          keyExtractor={(item, index) => `card-${item.id}`}
+          keyExtractor={(item, index) => `card-${item.id}-${index}`}
           numColumns={1}
           renderItem={this._renderItem}
+          onEndReached={this._onEndReached}
+          onEndReachedThreshold={0.8}
+          refreshControl={
+            <RefreshControl
+            colors={['white']}
+            tintColor={'white'}
+            refreshing={loading}
+            onRefresh={this.props.getPokemons}
+            title={'Cargando...'}
+            titleColor={'white'}
+            />
+          }
         />
       </SafeAreaView>
     );

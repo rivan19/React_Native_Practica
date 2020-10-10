@@ -6,7 +6,7 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action = {}) => {
-    console.log('PokemonItem - Reducer:', action)
+    //console.log('PokemonItem - Reducer:', action)
     switch (action.type) {
         case types.SET_LOADING:
             return {...state, loading: action.payload.loading};

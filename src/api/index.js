@@ -4,11 +4,13 @@ import qs from 'qs';
 
 const instance = axios.create({
     baseURL: BASE_URL,
-    headers: {'Content-Type': 'application/json'}
+    headers: {
+            'Content-Type': 'application/json',
+        }
 });
 
-export const getPokemons = () => {
-    const url = '?subtype=Basic';
+export const getPokemons = (params) => {
+    const url = `/cards?${qs.stringify(params, {skipsNulls: true})}`;
     return instance.get(url);
 };
 

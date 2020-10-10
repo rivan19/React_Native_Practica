@@ -22,7 +22,7 @@ class Pokemon extends React.Component {
 
     }
     async componentDidMount(){
-        console.log('Pokemon - ComponentDidMount:', this.props);
+        //console.log('Pokemon - ComponentDidMount:', this.props);
         this.props.initSelectedItem();
 
         const callback = (width, height) => {
@@ -44,7 +44,7 @@ class Pokemon extends React.Component {
         const pok = this.props.pokemon;
         const pokItem = pok === null ? {} : pok
         const {height, width} = this.state;
-        console.log('this.props - Pokemon:', pokItem);
+        //console.log('this.props - Pokemon:', pokItem);
         return (
             <SafeAreaView style={styles.container}>
                     <View style={styles.centerStyle}>
