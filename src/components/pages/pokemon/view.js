@@ -15,32 +15,23 @@ import {Actions} from 'react-native-router-flux';
 class Pokemon extends React.Component {
     constructor(props){
         super(props)
-        this.state = {
-            width: 300,
-            height: 100,
-          };
 
+        const totalWidth = Dimensions.get('window').width;
+        const cardWidth = totalWidth / 2;
+        const cardHeight = (cardWidth * Dimensions.get('window').height) / totalWidth;
+        //this.setState({height: cardHeight, width: cardWidth});
+
+        this.state = {
+            width: cardWidth,
+            height: cardHeight,
+          };
     }
     async componentDidMount(){
-        //console.log('Pokemon - ComponentDidMount:', this.props);
         this.props.initSelectedItem();
-
-        const callback = (width, height) => {
-            const totalWidth = Dimensions.get('window').width;
-            const cardWidth = totalWidth / 2;
-            const cardHeight = (cardWidth * height) / width;
-            this.setState({height: cardHeight, width: cardWidth});
-          };
-
-        const pok = this.props.pokemon;
-        const pokItem = pok === null ? {} : pok
-
-        Image.getSize(pokItem.imageUrl, callback, () => {
-            this.setState({height: 200, width: 200});
-        });
     }
+
     render() {
-        //console.log('Pokemon:', this.props);
+        console.log('Pokemon - state:', this.state);
         const pok = this.props.pokemon;
         const pokItem = pok === null ? {} : pok
         const {height, width} = this.state;
@@ -51,6 +42,8 @@ class Pokemon extends React.Component {
                         <Image
                             source={{uri: pokItem.imageUrl}}
                             style={{width: width, height: height}}
+                            resizeMode= {'contain'}
+                            resizeMethod= {'resize'}
                         />
                     </View>
                     <View style={styles.tableDetail}>

@@ -3,12 +3,11 @@ import * as api from '../../api';
 import {Alert} from 'react-native';
 import _ from 'lodash';
 
-const updateList = (newList, total) => {
+const updateList = (newList) => {
     const action = {
         type: types.UPDATE_LIST,
         payload: {
             list: newList,
-            total,
         }
     };
     return action;
@@ -55,14 +54,10 @@ export const setItemPokemon = (item) => {
 
 export const fetchNexPage = () => {
     return (dispatch, getState) => {
-        const {page, pokemonList, total} = getState().pokemons;
-        const listSize = _.size(pokemonList);
-        //if (listSize < total){
-            const newPage = page + 1;
-            dispatch(updatePage(newPage));
-            dispatch(fetchPokemons());
-        //}
-
+        const {page} = getState().pokemons;
+        const newPage = page + 1;
+        dispatch(updatePage(newPage));
+        dispatch(fetchPokemons());
     }
 }
 
@@ -79,11 +74,11 @@ export const fetchPokemons = () => {
             const getPokemonsRes = await api.getPokemons(params);
             
             const resList = _.get(getPokemonsRes, 'data.cards', []);
-            const total = _.size(resList)
+            
 
             const newList = [...pokemonList, ...resList];
 
-            dispatch(updateList(newList, total));
+            dispatch(updateList(newList));
         } catch (e) {
             Alert.alert('Error', e.message || 'Ha ocurrido un error');
         } finally {

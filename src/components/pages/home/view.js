@@ -29,13 +29,9 @@ class Home extends React.Component {
 
   _onEndReached = ({distanceFromEnd}) => {
     //console.log('onEndReached:', this.props);
-    const {pokemonList, total, loading} = this.props;
-    const listSize = _.size(pokemonList);
-    //console.log('_onEndReached - listSize:', listSize);
-    //console.log('_onEndReached - total:', total);
-    //if (listSize > 0 && listSize < total) {
+    //const {pokemonList, loading} = this.props;
+    //const listSize = _.size(pokemonList);
       this.props.fetchNextPokemonsPage();
-    //}
   };
 
   _renderItem = ({item, index}) => {
@@ -80,12 +76,12 @@ class Home extends React.Component {
           onEndReachedThreshold={0.8}
           refreshControl={
             <RefreshControl
-            colors={['white']}
-            tintColor={'white'}
+            colors={[colors.white]}
+            tintColor={colors.white}
             refreshing={loading}
             onRefresh={this.props.getPokemons}
             title={'Cargando...'}
-            titleColor={'white'}
+            titleColor={colors.white}
             />
           }
         />

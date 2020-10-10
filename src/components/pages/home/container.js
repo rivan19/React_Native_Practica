@@ -7,7 +7,6 @@ const mapStateProps = (state) => {
         pokemonList: state.pokemons.pokemonList,
         loading: state.pokemons.loading,
         pokemon: state.pokemons.pokemon,
-        total: state.pokemons.total,
         page: state.pokemons.page,
     };
 };

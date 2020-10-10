@@ -10,9 +10,6 @@ export default StyleSheet.create({
     centerStyle: {
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 10,
-        marginBottom: 20,
     },
     textTitle : {
         fontSize: 22,
