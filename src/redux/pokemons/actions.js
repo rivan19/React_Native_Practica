@@ -74,7 +74,6 @@ export const fetchPokemons = () => {
             const getPokemonsRes = await api.getPokemons(params);
             
             const resList = _.get(getPokemonsRes, 'data.cards', []);
-            
 
             const newList = [...pokemonList, ...resList];
 
@@ -86,3 +85,31 @@ export const fetchPokemons = () => {
         }
     };
 };
+
+export const addNewPokemon = (item) => {
+    console.log('actions:', item);
+    return (dispatch, getState) => {
+        const {pokemonList, manualId} = getState().pokemons;
+        const newManualId = manualId + 1;
+        dispatch(setNewManualId(newManualId));
+        item.id = `manual-${newManualId}`;
+        const newArray = [item];
+        console.log('newArray:', newArray);
+        console.log('size - before:', _.size(pokemonList))
+        const newList = [...newArray, ...pokemonList];
+        console.log('size - after:', _.size(newList));
+        console.log('addNewPokemon - newList:', newList);
+        dispatch(updateList(newList));
+    }   
+}
+
+const setNewManualId = (manualId) => {
+    const action = {
+        type: types.UPDATE_MANUAL_ID,
+        payload:{
+            manualId
+        }
+    }
+
+    return action;
+}

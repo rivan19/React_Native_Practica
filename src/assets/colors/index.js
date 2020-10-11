@@ -3,7 +3,7 @@ const colors = {
     navBar: '#171717',
     white: 'white',
     black: 'black',
-    error: 'red',
+    error: '#8b0c00',
     grey: 'grey',
   };
   

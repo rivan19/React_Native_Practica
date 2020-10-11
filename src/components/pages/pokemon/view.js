@@ -1,5 +1,3 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable semi */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { 
@@ -10,6 +8,7 @@ import {
     View 
 } from 'react-native';
 import styles from './styles';
+import {TextLabel} from '../../atoms';
 import {Actions} from 'react-native-router-flux';
 
 class Pokemon extends React.Component {
@@ -26,16 +25,17 @@ class Pokemon extends React.Component {
             height: cardHeight,
           };
     }
-    async componentDidMount(){
+    componentDidMount(){
         this.props.initSelectedItem();
     }
 
     render() {
-        console.log('Pokemon - state:', this.state);
+        
         const pok = this.props.pokemon;
-        const pokItem = pok === null ? {} : pok
+        const pokItem = pok === null ? {} : pok;
+
         const {height, width} = this.state;
-        //console.log('this.props - Pokemon:', pokItem);
+        
         return (
             <SafeAreaView style={styles.container}>
                     <View style={styles.centerStyle}>
@@ -47,30 +47,43 @@ class Pokemon extends React.Component {
                         />
                     </View>
                     <View style={styles.tableDetail}>
-                        <View style={styles.tableDetailHorizontal}>
-                            <Text style={styles.textTitle}>Id:</Text>
-                            <Text style={styles.text}>{pokItem.id}</Text>
-                        </View>
-                        <View style={styles.tableDetailHorizontal}>
-                            <Text style={styles.textTitle}>Name:</Text>
-                            <Text style={styles.text}>{pokItem.name}</Text>
-                        </View>
-                        <View style={styles.tableDetailHorizontal}>
-                            <Text style={styles.textTitle}>Power:</Text>
-                            <Text style={styles.text}>{pokItem.hp}</Text>
-                        </View>
-                        <View style={styles.tableDetailHorizontal}>
-                            <Text style={styles.textTitle}>Rarity:</Text>
-                            <Text style={styles.text}>{pokItem.rarity}</Text>
-                        </View>
-                        <View style={styles.tableDetailHorizontal}>
-                            <Text style={styles.textTitle}>Series:</Text>
-                            <Text style={styles.text}>{pokItem.series}</Text>
-                        </View>
-                </View>
+                        <TextLabel
+                            label={'Id:'}
+                            value={pokItem.id}
+                            styleLabel={styles.textTitle}
+                        />
+                        <TextLabel
+                            label={'Name:'}
+                            value={pokItem.name}
+                            styleLabel={styles.textTitle}
+                        />
+                        <TextLabel
+                            label={'Power:'}
+                            value={pokItem.hp}
+                            styleLabel={styles.textTitle}
+                        />
+                        <TextLabel
+                            label={'Rarity:'}
+                            value={pokItem.rarity}
+                            styleLabel={styles.textTitle}
+                        />
+                        <TextLabel
+                            label={'Series:'}
+                            value={pokItem.series}
+                            styleLabel={styles.textTitle}
+                        />
+                    </View>
             </SafeAreaView>
         )
     }
+}
+
+Pokemon.propTypes = {
+    pokemon: PropTypes.object,
+    pok: PropTypes.object,
+    pokItem: PropTypes.object,
+    initSelectedItem: PropTypes.func,
+
 }
 
 export default Pokemon;

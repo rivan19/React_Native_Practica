@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { object } from 'prop-types';
 import {
   SafeAreaView,
   FlatList,
@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+import {HomeCard} from '../../molecules';
 import styles from './styles';
 import {Actions} from 'react-native-router-flux';
 import colors from '../../../assets/colors';
@@ -34,34 +35,6 @@ class Home extends React.Component {
       this.props.fetchNextPokemonsPage();
   };
 
-  _renderItem = ({item, index}) => {
-    return (
-      <TouchableOpacity
-        pokemon={item}
-        onPress={() => {
-          this._onPressButton(item);
-        }}>
-        <View style={styles.table}>
-          <Image
-            resizeMode={'cover'}
-            source={{uri: item.imageUrl}}
-            style={styles.image}
-          />
-          <View style={styles.tableDetail}>
-            <View style={styles.tableDetailHorizontal}>
-              <Text style={styles.text}>Name:</Text>
-              <Text style={styles.text}>{item.name}</Text>
-            </View>
-            <View style={styles.tableDetailHorizontal}>
-              <Text style={styles.text}>Power:</Text>
-              <Text style={styles.text}>{item.hp}</Text>
-            </View>
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
-  };
-
   render() {
     //console.log('componentDidMount - Render:', this.props);
     const {pokemonList, loading} = this.props;
@@ -71,7 +44,12 @@ class Home extends React.Component {
           data={pokemonList}
           keyExtractor={(item, index) => `card-${item.id}-${index}`}
           numColumns={1}
-          renderItem={this._renderItem}
+          renderItem={({item}) => (
+            <HomeCard
+              pokemonItem={item}
+              onPress={(pokemonItem) => this._onPressButton(pokemonItem)}
+            />
+          )}
           onEndReached={this._onEndReached}
           onEndReachedThreshold={0.8}
           refreshControl={
@@ -88,6 +66,17 @@ class Home extends React.Component {
       </SafeAreaView>
     );
   }
+}
+
+Home.propTypes = {
+  pokemonList: PropTypes.arrayOf(object),
+  loading: PropTypes.bool,
+  _onPressButton: PropTypes.func,
+  getPokemons: PropTypes.func,
+  _onEndReached: PropTypes.func,
+  fetchNextPokemonsPage: PropTypes.func,
+  setPokemon: PropTypes.func,
+  getPokemons: PropTypes.func,
 }
 
 export default Home;

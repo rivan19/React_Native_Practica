@@ -1,18 +1,17 @@
 import {connect} from 'react-redux';
 import View from './view';
-import {pokemonItemAddActions} from '../../../redux/pokemonItemAdd';
+import {pokemonActions} from '../../../redux/pokemons';
 
 const mapStateProps = (state) => {
     return {
-        loading: state.pokemonItemAdd.loading,
-        pokemon: state.pokemonItemAdd.item,
+        pokemonList: state.pokemons.pokemonList,
+        manualId: state.pokemons.manualId,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateItem: (item) => dispatch(pokemonItemAddActions.updateItem(item)),
-        initSelectedItem: () => dispatch(pokemonItemAddActions.setInitialItem()),
+        addPokemon: (item) => dispatch(pokemonActions.addNewPokemon(item)),
     };
 };
 

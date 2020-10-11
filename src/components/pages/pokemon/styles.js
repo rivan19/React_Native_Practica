@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native';
-import { color } from 'react-native-reanimated';
 import colors from '../../../assets/colors';
 
 export default StyleSheet.create({
@@ -16,10 +15,7 @@ export default StyleSheet.create({
         color: colors.white,
         fontWeight: 'bold',
         marginRight: 10,
-    },
-    text: {
-        fontSize: 20,
-        color: colors.white,
+        marginLeft: 10,
     },
     tableDetail: {
         flexDirection: 'column',
@@ -32,11 +28,5 @@ export default StyleSheet.create({
         backgroundColor: colors.grey,
         borderWidth: 2,
         borderColor: colors.white,
-    },
-    tableDetailHorizontal: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        marginTop: 10,
-        marginHorizontal: 20,
     },
 });
