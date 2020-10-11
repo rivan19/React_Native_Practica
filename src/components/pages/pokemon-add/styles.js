@@ -23,12 +23,15 @@ export default StyleSheet.create({
     textLabel: {
         fontSize: 20,
         color: colors.white,
-        borderWidth: 1,
-        borderColor: colors.white,
+        //borderWidth: 1,
+        //borderColor: colors.white,
+        //marginTop: 20,
+        //marginHorizontal: 20,
     },
     textError: {
         fontSize: 20,
         color: colors.error,
+        marginLeft: 10,
     },
     tableDetail: {
         flexDirection: 'column',

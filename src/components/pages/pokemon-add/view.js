@@ -8,7 +8,7 @@ import {
     View,
     TouchableOpacity, 
     TextInput, 
-    Button
+    Button, Alert
 } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import styles from './styles';
@@ -46,7 +46,7 @@ class PokemonAdd extends React.Component {
     }
 
     _onPressButton = () => {
-        console.log('_onPressButton - state:', this.state);
+        //console.log('_onPressButton - state:', this.state);
         const {name, power, rarity, series, image} = this.state;
         const errors = {};
 
@@ -55,12 +55,17 @@ class PokemonAdd extends React.Component {
         }
         if (!power){
             errors.power = '\'Power\'. Campo obligatorio';
+        } else if (!_.toNumber(power)) {
+            errors.power = '\'Power\'. Debe ser un Número';
         }
         if (!rarity){
             errors.rarity = '\'Rarity\'. Campo obligatorio';
         }
         if (!series){
             errors.series = '\'Series\'. Campo obligatorio';
+        }
+        if (!image){
+            errors.image = '\'Imagen\'. Campo obligatorio';
         }
 
         this.setState({errors});
@@ -75,7 +80,7 @@ class PokemonAdd extends React.Component {
             series,
             imageUrl: image && image.data ? `data:image/jpeg;base64,${image.data}` : null,
         };
-        console.log('item:', item);
+        //console.log('item:', item);
         this.props.addPokemon(item);
         Actions.pop();
     }
@@ -98,6 +103,9 @@ class PokemonAdd extends React.Component {
                     <Image source={characterImage} style={styles.imageBackground} />
                     {characterImage ? <Text style={{width:200}}></Text> : <Text style={styles.text}>Pulsa para Seleccionar una imagen</Text>}
                     </TouchableOpacity> 
+                </View>
+                <View style={styles.centerStyle}>
+                {errors.image ? <Text style={styles.textError}>{errors.image}</Text> : null}
                 </View>
                 <View style={styles.tableDetail}>
                     <View style={styles.tableDetailHorizontal}>
